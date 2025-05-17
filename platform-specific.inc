@@ -40,7 +40,8 @@ static int default_RNG(uint8_t *dest, unsigned size) {
     #define O_CLOEXEC 0
 #endif
 
-static int default_RNG(uint8_t *dest, unsigned size) {
+static int default_RNG(void *ctx, uint8_t *dest, unsigned size) {
+	((void) (ctx)); // unused ctx
     int fd = open("/dev/urandom", O_RDONLY | O_CLOEXEC);
     if (fd == -1) {
         fd = open("/dev/random", O_RDONLY | O_CLOEXEC);
